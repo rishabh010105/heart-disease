@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %} 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Prediction Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            height: auto;
+            overflow-y: auto;
+            background: url("{% static 'patientform_bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+        }
+
+        .top-bar {
+            background-color: rgba(44, 62, 80, 0.95);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.7rem 1.5rem;
+        }
+
+        .top-bar .brand {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .top-bar nav a {
+            color: #ecf0f1;
+            margin-left: 1rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background-color: #1abc9c;
+        }
+
+        .top-bar nav a:hover {
+            background-color: #16a085;
+        }
+
+        .page-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            padding: 2rem 1.5rem;
+        }
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.94);
+            padding: 2.2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+            max-width: 560px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4a90e2;
+            margin-bottom: 0.4rem;
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-size: 0.98rem;
+            color: #7f8c8d;
+            margin-bottom: 1.4rem;
+        }
+
+        input, select, textarea {
+            border-radius: 10px !important;
+            border: 1px solid #d1d9e6;
+            padding: 0.8rem !important;
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, #4facfe, #00f2fe);
+            border: none;
+            color: white;
+            padding: 0.6rem 2.2rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .page-wrapper {
+                justify-content: center;
+                padding: 1.4rem 0.9rem;
+            }
+
+            .form-container {
+                padding: 1.8rem 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="brand">Heart Disease Predictor – Input Form</div>
+        <nav>
+            <a href="{% url 'successfully_logged_in' %}">Dashboard</a>
+            <a href="{% url 'view_patients' %}">Session Summary</a>
+        </nav>
+    </header>
+
+    <main class="page-wrapper">
+        <div class="form-container">
+            <h1>Patient Form</h1>
+            <p class="subtitle">Enter the patient details to generate a personalised heart disease risk prediction.</p>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="mb-3">
+                    {{ form.as_p }}
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-custom btn-lg">
+                        Predict
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

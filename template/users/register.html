@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register – Heart Disease Predictor</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: url("{% static 'register.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 520px;
+            margin: 3rem auto;
+            padding: 1.5rem;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 18px;
+            padding: 2rem 2.2rem;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+            border-top: 6px solid #e60000;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        .subtitle {
+            margin-top: 0.3rem;
+            font-size: 0.94rem;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 1.3rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .form-group {
+            font-size: 0.9rem;
+            color: #34495e;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.55rem 0.7rem;
+            border-radius: 9px;
+            border: 1px solid #d5d8dc;
+            font-size: 0.9rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #e60000;
+            box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2);
+        }
+
+        .btn-primary {
+            margin-top: 0.7rem;
+            width: 100%;
+            border: none;
+            border-radius: 999px;
+            padding: 0.7rem 1rem;
+            background: linear-gradient(135deg, #e60000, #b30000);
+            color: #ffffff;
+            font-size: 0.98rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.96;
+        }
+
+        .links {
+            margin-top: 1rem;
+            font-size: 0.86rem;
+            text-align: center;
+            color: #7f8c8d;
+        }
+
+        .links a {
+            color: #e60000;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .wrapper {
+                margin: 1.8rem auto;
+            }
+
+            .card {
+                padding: 1.6rem 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="wrapper">
+        <section class="card">
+            <h1>Create your account</h1>
+            <p class="subtitle">Register to access the Heart Disease Predictor dashboard.</p>
+
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label_tag }}
+                    {{ form.email }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.phone_number.label_tag }}
+                    {{ form.phone_number }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.dob.label_tag }}
+                    {{ form.dob }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.hospital_name.label_tag }}
+                    {{ form.hospital_name }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password1.label_tag }}
+                    {{ form.password1 }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password2.label_tag }}
+                    {{ form.password2 }}
+                </div>
+
+                <button type="submit" class="btn-primary">Sign up</button>
+            </form>
+
+            <div class="links">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign in instead</a></p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

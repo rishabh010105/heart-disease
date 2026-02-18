@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Predictor</title>
+    {% load static %}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            color: #ffffff;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(0, 191, 255, 0.35), transparent 55%),
+                radial-gradient(circle at bottom right, rgba(46, 204, 113, 0.25), transparent 55%),
+                linear-gradient(135deg, #020924, #051b3d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .content {
+            max-width: 720px;
+            padding: 2.5rem 2rem 3rem;
+        }
+
+        .title {
+            font-size: 2.6rem;
+            letter-spacing: 0.15rem;
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .subtitle {
+            font-size: 0.98rem;
+            color: #d0d4ff;
+            margin-bottom: 2rem;
+        }
+
+        .actions {
+            display: inline-flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn {
+            min-width: 130px;
+            padding: 0.7rem 1.6rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease, color 0.2s ease, transform 0.1s ease;
+            border: 1px solid #45aaf2;
+        }
+
+        .btn-primary {
+            background-color: #45aaf2;
+            color: #02101f;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #ecf0f1;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .glow-icons {
+            margin-top: 2.3rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+            opacity: 0.9;
+        }
+
+        .glow-dot {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 14px rgba(0, 191, 255, 0.45);
+            font-size: 0.75rem;
+            color: #c4e9ff;
+        }
+
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2.1rem;
+            }
+
+            .actions {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="content">
+        <h1 class="title">Heart Disease Predictor</h1>
+        <p class="subtitle">
+            Your heart’s future, unveiled. Use machine learning–powered insights to estimate heart disease risk
+            early and support smarter health decisions.
+        </p>
+
+        <div class="actions">
+            <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+            <a href="{% url 'register' %}" class="btn btn-secondary">Sign up</a>
+        </div>
+
+        <div class="glow-icons">
+            <div class="glow-dot">ECG</div>
+            <div class="glow-dot">Vitals</div>
+            <div class="glow-dot">Risk</div>
+            <div class="glow-dot">Report</div>
+        </div>
+    </main>
+</body>
+</html>

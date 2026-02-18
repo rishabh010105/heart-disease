@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Predictor – Dashboard</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #2C3E50;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 12px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            padding: 8px 18px;
+            border-radius: 30px;
+            background-color: #1ABC9C;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            background-color: #16A085;
+        }
+
+        .hero-section {
+            text-align: center;
+            background-color: white;
+            padding: 80px 15px 50px;
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .hero-title {
+            font-size: 2.4rem;
+            margin: 0;
+            font-weight: 700;
+            color: #2C3E50;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin: 16px auto 0;
+            max-width: 680px;
+            color: #7F8C8D;
+        }
+
+        .hero-actions {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .primary-cta,
+        .secondary-cta {
+            display: inline-block;
+            padding: 11px 26px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .primary-cta {
+            background-color: #E74C3C;
+            color: white;
+        }
+
+        .secondary-cta {
+            background-color: transparent;
+            color: #E74C3C;
+            border: 1px solid #E74C3C;
+        }
+
+        .primary-cta:hover {
+            background-color: #C0392B;
+        }
+
+        .secondary-cta:hover {
+            background-color: rgba(231, 76, 60, 0.08);
+        }
+
+        .content-section {
+            padding: 40px 20px 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            padding: 18px 20px 20px;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: #34495E;
+            margin-bottom: 0.4rem;
+        }
+
+        .card p {
+            font-size: 0.92rem;
+            color: #7F8C8D;
+            line-height: 1.5;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.15rem 0.7rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .pill-success {
+            background-color: #e8f6f3;
+            color: #1e8449;
+        }
+
+        .pill-muted {
+            background-color: #f2f3f4;
+            color: #5d6d7e;
+        }
+
+        .news-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0.2rem 0 0;
+        }
+
+        .news-list li {
+            margin-bottom: 0.4rem;
+            font-size: 0.9rem;
+        }
+
+        .news-list a {
+            color: #2980B9;
+            text-decoration: none;
+        }
+
+        .news-list a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2C3E50;
+            padding: 0.8rem;
+            color: white;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.6rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body id="top">
+    <header>
+        <div class="logo">Heart Disease Predictor</div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'patient_form' %}">New Prediction</a></li>
+                <li><a href="{% url 'view_patients' %}">Session Summary</a></li>
+                <li><a href="{% url 'predict_health' %}">Latest Report</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <h1 class="hero-title">Welcome to your Heart Risk Dashboard</h1>
+        <p class="hero-description">
+            This platform demonstrates a complete machine learning pipeline for early heart disease risk prediction,
+            designed as a final-year project with a focus on explainability and usability.
+        </p>
+        <div class="hero-actions">
+            <a href="{% url 'patient_form' %}" class="primary-cta">Start New Prediction</a>
+            <a href="{% url 'view_patients' %}" class="secondary-cta">View Session Summary</a>
+        </div>
+    </section>
+
+    <main class="content-section">
+        <div class="grid">
+            <section class="card">
+                <h3>Project Overview</h3>
+                <p>
+                    This web application uses a trained k-Nearest Neighbours model to estimate the likelihood
+                    of heart disease based on vital signs, lifestyle factors, and lab results. It is built with
+                    Django on the backend and a clean, responsive UI suitable for demonstrations and viva.
+                </p>
+                <p>
+                    <span class="pill pill-muted">Tech Stack: Django, scikit‑learn, pandas</span>
+                </p>
+            </section>
+
+            <section class="card">
+                <h3>Model Snapshot</h3>
+                <p>
+                    The model has been trained on a cleaned patient dataset. Inputs are scaled and encoded before
+                    prediction to match the training pipeline, ensuring consistent results during deployment.
+                </p>
+                <p>
+                    <span class="pill pill-success">Live model loaded</span>
+                </p>
+                {% if last_prediction %}
+                    <p style="margin-top:0.3rem;font-size:0.9rem;">
+                        <strong>Latest prediction:</strong> {{ last_prediction }}
+                    </p>
+                {% else %}
+                    <p style="margin-top:0.3rem;font-size:0.9rem;">
+                        <em>No predictions run in this session yet.</em>
+                    </p>
+                {% endif %}
+            </section>
+
+            <section class="card">
+                <h3>Learn More &amp; Health Tips</h3>
+                <ul class="news-list">
+                    <li>
+                        <a href="https://www.healthline.com/health/healthy-heart-tips" target="_blank" rel="noopener noreferrer">
+                            How to maintain a healthy heart
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.webmd.com/heart-disease/heart-disease-types-causes-symptoms" target="_blank" rel="noopener noreferrer">
+                            Understanding heart diseases and their symptoms
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.theaustralian.com.au/news/this-littleknown-diet-can-reduce-blood-pressure-and-risk-of-heart-disease/news-story/ce9dfb7975dc653002b6107bf2de46b7" target="_blank" rel="noopener noreferrer">
+                            Latest lifestyle recommendations and diet insights
+                        </a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>
+            &copy; 2026 Heart Disease Predictor. For academic demonstration only – not intended for real medical use.
+            <a href="#top">Back to top</a>
+        </p>
+    </footer>
+</body>
+</html>

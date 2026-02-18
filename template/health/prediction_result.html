@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url("{% static 'predict.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background-color: rgba(44, 62, 80, 0.95);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .top-bar .brand {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .top-bar nav a {
+            color: #ecf0f1;
+            margin-left: 1rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            background-color: #1abc9c;
+        }
+
+        .top-bar nav a:hover {
+            background-color: #16a085;
+        }
+
+        .page-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 14px;
+            width: 100%;
+            max-width: 650px;
+            padding: 1.8rem 2rem;
+        }
+
+        .card h1 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .prediction-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .prediction-main {
+            flex: 2;
+        }
+
+        .risk-pill {
+            display: inline-block;
+            padding: 0.25rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .risk-low {
+            background-color: #e8f6f3;
+            color: #1e8449;
+        }
+
+        .risk-moderate {
+            background-color: #fef5e7;
+            color: #b9770e;
+        }
+
+        .risk-high {
+            background-color: #fdedec;
+            color: #c0392b;
+        }
+
+        .prediction-text {
+            font-size: 1.1rem;
+            margin-top: 0.4rem;
+        }
+
+        .advice-box {
+            background-color: #ecf0f1;
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .advice-box strong {
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            margin-bottom: 1.4rem;
+        }
+
+        .details-table th,
+        .details-table td {
+            padding: 0.4rem 0.5rem;
+            border-bottom: 1px solid #ecf0f1;
+            text-align: left;
+        }
+
+        .details-table th {
+            width: 45%;
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+
+        .details-table td {
+            color: #2c3e50;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: flex-end;
+            margin-top: 0.4rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.55rem 1.2rem;
+            font-size: 0.95rem;
+            color: #fff;
+            background-color: #3498db;
+            border-radius: 999px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-secondary {
+            background-color: #7f8c8d;
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+        }
+
+        @media (max-width: 700px) {
+            .card {
+                padding: 1.4rem 1.3rem;
+            }
+
+            .prediction-row {
+                flex-direction: column;
+            }
+
+            .actions {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-bar">
+        <div class="brand">Heart Disease Predictor – Report</div>
+        <nav>
+            <a href="{% url 'successfully_logged_in' %}">Dashboard</a>
+            <a href="{% url 'patient_form' %}">New Prediction</a>
+            <a href="{% url 'view_patients' %}">Session Summary</a>
+        </nav>
+    </header>
+
+    <main class="page-wrapper">
+        <section class="card">
+            <h1>Prediction Result</h1>
+            <p class="subtitle">
+                This report summarises the latest prediction from the heart disease risk model.
+            </p>
+
+            <div class="prediction-row">
+                <div class="prediction-main">
+                    {% if risk_level == "High" %}
+                        <span class="risk-pill risk-high">High Risk</span>
+                    {% elif risk_level == "Low" %}
+                        <span class="risk-pill risk-low">Low Risk</span>
+                    {% else %}
+                        <span class="risk-pill risk-moderate">Moderate Risk</span>
+                    {% endif %}
+
+                    <p class="prediction-text">
+                        <strong>Model output:</strong>
+                        {{ prediction }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="advice-box">
+                <strong>Interpretation &amp; Recommendation</strong>
+                <span>{{ advice }}</span>
+                <span style="display:block;margin-top:4px;font-size:0.8rem;color:#7f8c8d;">
+                    *This is an AI-based decision support tool and not a clinical diagnosis.
+                </span>
+            </div>
+
+            {% if input_data %}
+                <h3 style="margin-bottom:0.4rem;">Key Patient Inputs</h3>
+                <table class="details-table">
+                    <tbody>
+                        <tr>
+                            <th>Height (cm)</th>
+                            <td>{{ input_data.Height_cm }}</td>
+                        </tr>
+                        <tr>
+                            <th>Weight (kg)</th>
+                            <td>{{ input_data.Weight_kg }}</td>
+                        </tr>
+                        <tr>
+                            <th>Temperature (°C)</th>
+                            <td>{{ input_data.Temperature_C }}</td>
+                        </tr>
+                        <tr>
+                            <th>Heart Rate</th>
+                            <td>{{ input_data.Heart_Rate }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cholesterol (mg/dL)</th>
+                            <td>{{ input_data.Cholesterol_mg_dL }}</td>
+                        </tr>
+                        <tr>
+                            <th>Blood Sugar (mg/dL)</th>
+                            <td>{{ input_data.Blood_Sugar_mg_dL }}</td>
+                        </tr>
+                        <tr>
+                            <th>Blood Pressure (Systolic / Diastolic)</th>
+                            <td>{{ input_data.Systolic_BP }} / {{ input_data.Diastolic_BP }}</td>
+                        </tr>
+                        <tr>
+                            <th>Symptoms</th>
+                            <td>{{ input_data.Symptoms }}</td>
+                        </tr>
+                        <tr>
+                            <th>Existing Conditions</th>
+                            <td>{{ input_data.Existing_Conditions }}</td>
+                        </tr>
+                        <tr>
+                            <th>Laboratory Test Results</th>
+                            <td>{{ input_data.Laboratory_Test_Results }}</td>
+                        </tr>
+                        <tr>
+                            <th>Smoking Status</th>
+                            <td>{{ input_data.Smoking_Status }}</td>
+                        </tr>
+                        <tr>
+                            <th>Family History of Heart Disease</th>
+                            <td>{{ input_data.Family_History_Heart_Disease }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+
+            <div class="actions">
+                <a href="{% url 'patient_form' %}" class="btn">Predict Again</a>
+                <a href="{% url 'view_patients' %}" class="btn btn-secondary">View Session Summary</a>
+                <button class="btn" type="button" onclick="window.print()">Print / Save as PDF</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
